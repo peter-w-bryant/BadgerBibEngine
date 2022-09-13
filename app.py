@@ -5,6 +5,7 @@ from wtforms import Form, StringField, PasswordField, validators, SelectField
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 import os
+import config
 
 # session is a dictionary that stores data across requests.
 # logging is a simple logger that logs to a file.
@@ -12,22 +13,16 @@ import os
 
 # Flask Object
 app = Flask(__name__)
-app.secret_key = os.urandom(24) # Generate a secret key.
+app.secret_key = config.secret_key
 app.debug = True
 
 #Config MySQL: HEROKU
-app.config['MYSQL_HOST'] = 'us-cdbr-east-06.cleardb.net'
-app.config['MYSQL_USER'] = 'ba86b4a9718e9d'
-app.config['MYSQL_PASSWORD'] = 'e5dc53ca'
-app.config['MYSQL_DB'] = 'heroku_f404176484a68ad'
+app.config['MYSQL_HOST'] = config.host
+app.config['MYSQL_USER'] = config.user
+app.config['MYSQL_PASSWORD'] = config.password
+app.config['MYSQL_DB'] = config.database
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-#Config MySQL: LOCAL
-# app.config['MYSQL_HOST'] = 'localhost'
-# app.config['MYSQL_USER'] = 'root'
-# app.config['MYSQL_PASSWORD'] = 'Orion007'
-# app.config['MYSQL_DB'] = 'bibliometric_db'
-# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 #Create MYSQL Instance
 mysql = MySQL(app)
